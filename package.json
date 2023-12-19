@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/yairmishnayot/express-blog-api/issues"
   },
-  "homepage": "https://github.com/yairmishnayot/express-blog-api#readme"
+  "homepage": "https://github.com/yairmishnayot/express-blog-api#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
