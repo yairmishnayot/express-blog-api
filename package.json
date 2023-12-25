@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/yairmishnayot/express-blog-api#readme",
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "sequelize-cli": "^6.6.2"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
