@@ -1,15 +1,15 @@
-import dotenv from "dotenv";
-dotenv.config();
+require("dotenv").config()
 
-import express from "express";
+const express = require("express");
 
-import("./config/db.mjs");
+require("./config/db.js");
 
 const app = express();
 const port = 3000;
 
-import usersController from "./controllers/UsersController.mjs"
+const usersController = require("./controllers/UsersController.js");
 
+app.use(express.json());
 app.use("/users", usersController);
 
 app.listen(port, function () {
