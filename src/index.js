@@ -7,10 +7,10 @@ require("./config/db.js");
 const app = express();
 const port = 3000;
 
-const usersController = require("./controllers/UsersController.js");
+const userRoutes = require("./api/v1/routes/UserRoutes.js");
 
 app.use(express.json());
-app.use("/users", usersController);
+app.use("/users", userRoutes);
 
 app.listen(port, function () {
     console.log(`App is listening on port ${port}`);
