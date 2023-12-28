@@ -4,36 +4,53 @@ const DataTypes = require('sequelize').DataTypes;
 const User = userModel(sequelize, DataTypes);
 
 const UsersController = {
-    getAllUsers: async (req, res) => {
-        const users = await User.findAll();
-        res.status(200).json(users);
-    },
-    getUserById: async (req, res) => {
-        const user = await User.findByPk(req.params.id);
-        if (!user) {
-            res.status(404).json({ error: "User not found" });
-            return;
+    getAllUsers: async (req, res, next) => {
+        try {
+            const users = await User.findAll();
+            res.status(200).json(users);
+        } catch (err) {
+            next(err)
         }
-        res.status(200).json(user);
     },
-    createUser: async (req, res) => {
-        const { name, email } = req.body;
-        const newUser = await User.create({ name, email });
+    getUserById: async (req, res, next) => {
+        try {
+            const user = await User.findByPk(req.params.id);
+            if (!user) {
+                res.status(404);
+                throw new Error("User not found");
+            }
+            res.status(200).json(user);
+        } catch (err) {
+            next(err)
+        }
+    },
+    createUser: async (req, res, next) => {
+        try {
+            const { name, email } = req.body;
+            const newUser = await User.create({ name, email });
 
-        res.status(201).json(newUser);
-    },
-    updateUser: async (req, res) => {
-        const user = await User.findByPk(req.params.id);
-        if (!user) {
-            res.status(404).json({ error: "User not found" });
+            res.status(201).json(newUser);
+        } catch (err) {
+            next(err)
         }
-        const { name, email } = req.body;
-        user.name = name;
-        user.email = email;
-        user.save();
-        res.status(200).json(user);
     },
-    deleteUser: async (req, res) => {
+    updateUser: async (req, res, next) => {
+        try {
+            const user = await User.findByPk(req.params.id);
+            if (!user) {
+                res.status(404);
+                throw new Error("user not found");
+            }
+            const { name, email } = req.body;
+            user.name = name;
+            user.email = email;
+            user.save();
+            res.status(200).json(user);
+        } catch (error) {
+            next(err)
+        }
+    },
+    deleteUser: async (req, res, next) => {
         const user = await User.findByPk(req.params.id);
         if (!user) {
             res.status(404).json({ error: "User not found" });
